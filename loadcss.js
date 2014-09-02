@@ -1,5 +1,6 @@
 // 异步加载css
-(function(head) {
+(function(win) {
+	var head = win.document.getElementsByTagName("head")[0];
     var cssLoadedList = {};
 
     var util = {
@@ -234,22 +235,11 @@
 
     var getFormatedUrls = function(urls) {
         urls = ('string' === typeof urls) ? [urls] : urls;
-
-        var replace = function(url) {
-            return url.replace(/(\S+):(\S+)/, function($0, $1, $2) {
-                return DEBUG_STATIC_URL + '/' + $1 + '/' + $2;
-            });
-        };
-
-        for (var i = 0, len = urls.length; i < len; i++) {
-            urls[i] = replace(urls[i]);
-        }
-
         return urls;
     };
 
     // 暴露全局-构造门面
-    require.loadCss = function(urls, callback, isOrder) {
+    win.loadCss = function(urls, callback, isOrder) {
         cssLoader.loadCss(getFormatedUrls(urls), callback, isOrder);
     }
-})(head);
+})(window);
