@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>cssloader</title>
+		<meta name="description" content="" />
+		<meta name="author" content="jinguangguo" />
+
+		<script src="loadcss.js"></script>
+	</head>
+
+	<body>
+		<script>
+			window.loadCss("http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css", function() {
+		        console.log('bootstrap.min.css load success ...');
+		    });
+		
+		    // 加载多个css文件
+		    // 并行下载，且无序，即无法确保innerModuleOwnName1.css和innerModuleOwnName2.css文件谁先下载谁后下载
+		    // 因此，要注意后来的样式定义会覆盖之前的样式定义。
+		    window.loadCss(["http://cdn.bootcss.com/bootstrap/3.1.0/css/bootstrap.min.css",
+		            "http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css"], function() {
+		        console.log('load success ...');
+		    });
+		
+		    // 加载多个css文件
+		    // 按顺序下载，即无法确保innerModuleOwnName1.css下载完成后再下载innerModuleOwnName2.css文件
+		    window.loadCss(["http://cdn.bootcss.com/bootstrap/3.1.0/css/bootstrap.min.css",
+		        "http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css"], function() {
+		        console.log('load success ...');
+		    }, true);
+			
+		</script>
+	</body>
+</html>
